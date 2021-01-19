@@ -13,6 +13,7 @@ window.resizable(width=False, height=False)
 window.geometry("800x380")
 
 def open_dir():
+    e1.delete(0, END)
     global path
     global file_list
     path = filedialog.askdirectory() + "/"
@@ -25,7 +26,13 @@ def rename():
     if e1.get() == '' or e3.get() == '':
         messagebox.showerror("Error","One or both fields are empty!")
         return
-    
+    if not os.path.exists(e1.get()):
+        messagebox.showerror("Error","Invalid Path!")
+        return
+    if not file_list:
+        messagebox.showerror("Error","No files in the selected folder!")
+        return
+
     global count
     for file in file_list:
         if not os.path.isdir(path + file):
